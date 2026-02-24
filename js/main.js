@@ -184,10 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 label: "📊 I need an AI strategy for my business",
                 action: () => handleInterest('strategy')
             },
-            {
-                label: "💰 I'm looking for pricing information",
-                action: () => handleInterest('pricing')
-            },
+            
             {
                 label: "🏢 I want a private/on-premise AI system",
                 action: () => handleInterest('onprem')
@@ -268,7 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lower = text.toLowerCase();
 
         if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
-            handleInterest('pricing');
+            addBotMessage("We tailor pricing to each engagement based on scope and outcomes.", 400).then(() => {
+                addBotMessage("Happy to discuss specifics on a brief discovery call.", 600).then(() => {
+                    offerBooking();
+                });
+            });
         } else if (lower.includes('automat') || lower.includes('workflow')) {
             handleInterest('automation');
         } else if (lower.includes('on-prem') || lower.includes('private') || lower.includes('llm') || lower.includes('on prem')) {
@@ -276,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (lower.includes('audit') || lower.includes('strategy') || lower.includes('consult')) {
             handleInterest('strategy');
         } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
-            addBotMessage("Hey! 👋 How can I help you today? Feel free to ask about our services, pricing, or process.", 400);
+            addBotMessage("Hey! 👋 How can I help you today? Feel free to ask about our services or process.", 400);
         } else {
             addBotMessage("Great question! That's one I'd love to cover on a discovery call so I can give you a thorough answer.", 400).then(() => {
                 offerBooking();
