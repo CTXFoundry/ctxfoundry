@@ -184,10 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 label: "📊 I need an AI strategy for my business",
                 action: () => handleInterest('strategy')
             },
-            {
-                label: "💰 I'm looking for pricing information",
-                action: () => handleInterest('pricing')
-            },
+            
             {
                 label: "🏢 I want a private/on-premise AI system",
                 action: () => handleInterest('onprem')
@@ -202,21 +199,21 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleInterest(type) {
         switch (type) {
             case 'automation':
-                await addBotMessage("Great — workflow automation is our bread and butter. We typically start with a Strategy Audit to identify which workflows will generate the most ROI.", 500);
+                await addBotMessage("Great — workflow automation is our bread and butter. We typically start with a Revenue Automation Blueprint to identify which workflows will generate the most ROI.", 500);
                 await addBotMessage("Most clients see measurable results within 90 days of their first build.", 800);
                 await offerBooking();
                 break;
 
             case 'strategy':
-                await addBotMessage("Smart move. Our AI Strategy Audit is a fixed-cost, deep-dive assessment of your operations.", 500);
-                await addBotMessage("We'll map your workflows, identify high-ROI automation targets, and deliver a written roadmap — yours to keep regardless of next steps.", 800);
+                await addBotMessage("Smart move. Our Revenue Automation Blueprint is a fixed-cost, deep-dive exploration of your operations.", 500);
+                await addBotMessage("We map income-generating work and payroll-consuming tasks, then deliver a tangible plan you can execute — yours to keep regardless of next steps.", 800);
                 await offerBooking();
                 break;
 
             case 'pricing':
                 await addBotMessage("We believe in transparency. Here's the general framework:", 500);
-                await addBotMessage("• AI Strategy Audit: $2,500–$5,000 (fixed cost)\n• Single Workflow Build: $5,000–$15,000\n• Full Build + Retainer: $2,500–$8,000/mo\n• On-Premise LLM: $25K–$75K+ (project)", 800);
-                await addBotMessage("Every engagement starts with the Audit so we can scope accurately. No surprises.", 600);
+                await addBotMessage("• Revenue Automation Blueprint: $2,500–$5,000 (fixed cost)\n• Single Workflow Build: $5,000–$15,000\n• Full Build + Retainer: $2,500–$8,000/mo\n• On-Premise LLM: $25K–$75K+ (project)", 800);
+                await addBotMessage("Every engagement starts with the Blueprint so we can scope accurately. No surprises.", 600);
                 await offerBooking();
                 break;
 
@@ -268,7 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const lower = text.toLowerCase();
 
         if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
-            handleInterest('pricing');
+            addBotMessage("We tailor pricing to each engagement based on scope and outcomes.", 400).then(() => {
+                addBotMessage("Happy to discuss specifics on a brief discovery call.", 600).then(() => {
+                    offerBooking();
+                });
+            });
         } else if (lower.includes('automat') || lower.includes('workflow')) {
             handleInterest('automation');
         } else if (lower.includes('on-prem') || lower.includes('private') || lower.includes('llm') || lower.includes('on prem')) {
@@ -276,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (lower.includes('audit') || lower.includes('strategy') || lower.includes('consult')) {
             handleInterest('strategy');
         } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
-            addBotMessage("Hey! 👋 How can I help you today? Feel free to ask about our services, pricing, or process.", 400);
+            addBotMessage("Hey! 👋 How can I help you today? Feel free to ask about our services or process.", 400);
         } else {
             addBotMessage("Great question! That's one I'd love to cover on a discovery call so I can give you a thorough answer.", 400).then(() => {
                 offerBooking();
