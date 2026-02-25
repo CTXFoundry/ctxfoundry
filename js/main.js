@@ -2,7 +2,7 @@
    CTX FOUNDRY — MAIN JAVASCRIPT
    ======================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
+function onReady() {
 
     // ===== NAVBAR SCROLL EFFECT =====
     const navbar = document.getElementById('navbar');
@@ -334,5 +334,12 @@ document.addEventListener('DOMContentLoaded', () => {
             chatbotSend.click();
         }
     });
+}
 
-}); // end DOMContentLoaded
+// Run immediately if DOM is ready (script is at end of body),
+// otherwise attach to DOMContentLoaded for safety when loaded earlier.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+} else {
+    onReady();
+}
