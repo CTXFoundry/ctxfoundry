@@ -82,15 +82,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===== CONTACT FORM — BASIC HANDLING =====
     const contactForm = document.getElementById('contactForm');
 
-    contactForm.addEventListener('submit', function (e) {
-        // If you're using Formspree, let it submit naturally.
-        // If you want custom handling, uncomment below:
+    contactForm.addEventListener('submit', async function (e) {
+        // Submit via fetch to avoid Formspree redirect and stay on-page
+        e.preventDefault();
+        const formData = new FormData(this);
 
-        // e.preventDefault();
-        // const formData = new FormData(this);
-        // console.log('Form submitted:', Object.fromEntries(formData));
-        // alert('Thank you! We\'ll be in touch within 24 hours.');
-        // this.reset();
+        // Disable submit button while sending
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalBtnHtml = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        try {
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                // Show inline success message
+                const note = document.createElement('p');
+                note.className = 'form-note';
+                note.textContent = "Thanks! We'll be in touch within 24 hours.";
+                this.appendChild(note);
+                this.reset();
+            } else {
+                // Attempt to parse errors; otherwise show generic message
+                let msg = 'Something went wrong. Please try again or email hello@ctxfoundry.com';
+                try {
+                    const data = await response.json();
+                    if (data && data.errors && data.errors.length) {
+                        msg = data.errors.map(e => e.message).join(', ');
+                    }
+                } catch (_) { /* ignore JSON parse errors */ }
+                alert(msg);
+            }
+        } catch (err) {
+            alert('Network error. Please try again or email hello@ctxfoundry.com');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHtml;
+        }
     });
 
 
