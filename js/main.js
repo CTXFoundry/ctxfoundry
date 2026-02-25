@@ -277,7 +277,7 @@ function onReady() {
 
             case 'pricing':
                 await addBotMessage("We believe in transparency. Here's the general framework:", 500);
-                await addBotMessage("• Revenue Automation Blueprint: $2,500–$5,000 (fixed cost)\n• Single Workflow Build: $5,000–$15,000\n• Full Build + Retainer: $2,500–$8,000/mo\n• On-Premise LLM: $25K–$75K+ (project)", 800);
+                await addBotMessage("• Revenue Automation Blueprint: $2,500–$5,000 (fixed cost)\n• Single Workflow Build: $5,000–$15,000\n• Full Build + Support: $2,500–$8,000/mo\n• On-Premise LLM: $25K–$75K+ (project)", 800);
                 await addBotMessage("Every engagement starts with the Blueprint so we can scope accurately. No surprises.", 600);
                 await offerBooking();
                 break;
