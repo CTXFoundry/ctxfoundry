@@ -39,6 +39,53 @@
     --container-width: 1200px;
 }
 
+/* --- Toasts & Form Inline Errors --- */
+.toast-container {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.toast {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(8px);
+    animation: toast-in 200ms ease forwards;
+}
+
+.toast.hide {
+    opacity: 0 !important;
+    transform: translateY(8px) !important;
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.toast.error {
+    border-left-color: #e57373;
+}
+
+@keyframes toast-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-error {
+    margin-top: 10px;
+    color: #ff6b6b;
+    font-size: 0.95rem;
+}
+
 /* --- Reset --- */
 *,
 *::before,

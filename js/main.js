@@ -79,8 +79,33 @@ function onReady() {
     document.head.appendChild(style);
 
 
-    // ===== CONTACT FORM — BASIC HANDLING =====
+    // ===== CONTACT FORM — HANDLING (no redirect) =====
     const contactForm = document.getElementById('contactForm');
+
+    // Toast helpers
+    function ensureToastContainer() {
+        let c = document.getElementById('toastContainer');
+        if (!c) {
+            c = document.createElement('div');
+            c.id = 'toastContainer';
+            c.className = 'toast-container';
+            document.body.appendChild(c);
+        }
+        return c;
+    }
+
+    function showToast(message, type = 'success', timeout = 3000) {
+        const container = ensureToastContainer();
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        // Auto-remove after timeout
+        setTimeout(() => {
+            toast.classList.add('hide');
+            setTimeout(() => toast.remove(), 250);
+        }, timeout);
+    }
 
     contactForm.addEventListener('submit', async function (e) {
         // Submit via fetch to avoid Formspree redirect and stay on-page
@@ -93,6 +118,10 @@ function onReady() {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
+        // Clear inline error if present
+        const existingErr = this.querySelector('.form-error');
+        if (existingErr) existingErr.remove();
+
         try {
             const response = await fetch(this.action, {
                 method: 'POST',
@@ -101,25 +130,28 @@ function onReady() {
             });
 
             if (response.ok) {
-                // Show inline success message
-                const note = document.createElement('p');
-                note.className = 'form-note';
-                note.textContent = "Thanks! We'll be in touch within 24 hours.";
-                this.appendChild(note);
+                // Show success toast and reset form
+                showToast("Thanks! We'll be in touch within 24 hours.", 'success');
                 this.reset();
             } else {
                 // Attempt to parse errors; otherwise show generic message
-                let msg = 'Something went wrong. Please try again or email hello@ctxfoundry.com';
+                let msg = 'We couldn\'t send your message. Please try again or email hello@ctxfoundry.com';
                 try {
                     const data = await response.json();
                     if (data && data.errors && data.errors.length) {
                         msg = data.errors.map(e => e.message).join(', ');
                     }
                 } catch (_) { /* ignore JSON parse errors */ }
-                alert(msg);
+                const err = document.createElement('p');
+                err.className = 'form-error';
+                err.textContent = msg;
+                this.appendChild(err);
             }
         } catch (err) {
-            alert('Network error. Please try again or email hello@ctxfoundry.com');
+            const errMsg = document.createElement('p');
+            errMsg.className = 'form-error';
+            errMsg.textContent = 'Network error. Please try again or email hello@ctxfoundry.com';
+            this.appendChild(errMsg);
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnHtml;
