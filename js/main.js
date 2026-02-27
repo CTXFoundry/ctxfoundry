@@ -185,9 +185,9 @@ function onReady() {
     });
 
     // --- Chat message helpers ---
-    function addBotMessage(text, delay = 400) {
-        // Randomized typing delay between 1–5s unless a custom delay is passed
-        const useDelay = delay != null ? delay : (1000 + Math.floor(Math.random() * 4000));
+    function addBotMessage(text) {
+        // Simulate AI response latency with a random typing delay between 1-5s.
+        const useDelay = 1000 + Math.floor(Math.random() * 4001);
         return new Promise(resolve => {
             // Show typing indicator
             const typing = document.createElement('div');
