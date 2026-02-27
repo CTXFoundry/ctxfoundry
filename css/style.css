@@ -123,6 +123,18 @@
     box-sizing: border-box;
 }
 
+/* Align CTA buttons at bottom of service cards */
+.service-card {
+    display: flex;
+    flex-direction: column;
+}
+.service-card .service-detail {
+    margin-top: auto;
+}
+.service-card .hero-cta-group {
+    margin-top: 12px;
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--nav-height);
