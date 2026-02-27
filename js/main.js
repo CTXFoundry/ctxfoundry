@@ -185,14 +185,14 @@ function onReady() {
     });
 
     // --- Chat message helpers ---
-    function addBotMessage(text, delay = 400) {
-        // Randomized typing delay between 1–5s unless a custom delay is passed
-        const useDelay = delay != null ? delay : (1000 + Math.floor(Math.random() * 4000));
+    function addBotMessage(text) {
+        // Simulate AI response latency with a random typing delay between 1-5s.
+        const useDelay = 1000 + Math.floor(Math.random() * 4001);
         return new Promise(resolve => {
             // Show typing indicator
             const typing = document.createElement('div');
             typing.className = 'chat-message bot typing';
-            typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+            typing.innerHTML = '<span class="typing-text">Typing</span><span class="typing-dots"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>';
             chatbotBody.appendChild(typing);
             chatbotBody.scrollTop = chatbotBody.scrollHeight;
 
@@ -249,7 +249,7 @@ function onReady() {
     async function startChat() {
         chatState = 'started';
         await addBotMessage("Hey there! 👋 Welcome to CTX Foundry.", 300);
-        await addBotMessage("I can help point you in the right direction. What brings you here today?", 800);
+        await addBotMessage("We can help point you in the right direction. What brings you here today?", 800);
 
         addOptions([
             {
@@ -355,7 +355,7 @@ function onReady() {
         } else if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) {
             addBotMessage("Hey! 👋 How can I help you today? Feel free to ask about our services or process.", 400);
         } else {
-            addBotMessage("Great question! That's one I'd love to cover on a discovery call so I can give you a thorough answer.", 400).then(() => {
+            addBotMessage("Great question! That's one we'd love to cover on a discovery call so we can give you a thorough answer.", 400).then(() => {
                 offerBooking();
             });
         }
