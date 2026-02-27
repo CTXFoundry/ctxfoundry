@@ -254,6 +254,14 @@ img {
 .logo-icon {
     color: var(--accent);
     font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-icon img {
+    width: 1.2rem;
+    height: 1.2rem;
+    display: block;
 }
 
 .logo-text {
@@ -759,6 +767,12 @@ img {
     margin-bottom: 24px;
 }
 
+.visual-stat img {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 24px;
+}
+
 .visual-tagline {
     display: block;
     font-size: 1.3rem;
@@ -1001,6 +1015,12 @@ img {
     justify-content: center;
     color: var(--accent);
     font-size: 0.9rem;
+}
+
+.chatbot-avatar img {
+    width: 18px;
+    height: 18px;
+    display: block;
 }
 
 .chatbot-header-info strong {
