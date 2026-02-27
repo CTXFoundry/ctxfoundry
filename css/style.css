@@ -87,27 +87,35 @@
 }
 
 /* Chatbot typing indicator */
-.chat-message.typing {
+.chat-message.bot.typing {
     display: inline-flex;
-    gap: 6px;
     align-items: center;
-    padding: 8px 12px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    gap: 8px;
+    align-self: flex-start;
+}
+
+.typing-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+.typing-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .typing-dot {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: var(--text-muted);
+    background: var(--accent);
     display: inline-block;
     animation: typing-bounce 1s infinite ease-in-out;
 }
-.typing-dot:nth-child(2) { animation-delay: 0.15s; }
-.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+.typing-dots .typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dots .typing-dot:nth-child(3) { animation-delay: 0.3s; }
 
 @keyframes typing-bounce {
     0%, 80%, 100% { transform: translateY(0); opacity: 0.6; }
