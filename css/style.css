@@ -128,11 +128,12 @@
     display: flex;
     flex-direction: column;
 }
+.service-card:hover {
+    outline: 1px solid var(--border-accent);
+    box-shadow: var(--shadow-glow);
+}
 .service-card .service-detail {
     margin-top: auto;
-}
-.service-card .hero-cta-group {
-    margin-top: 12px;
 }
 
 html {
