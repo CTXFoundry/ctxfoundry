@@ -186,15 +186,26 @@ function onReady() {
 
     // --- Chat message helpers ---
     function addBotMessage(text, delay = 400) {
+        // Randomized typing delay between 1–5s unless a custom delay is passed
+        const useDelay = delay != null ? delay : (1000 + Math.floor(Math.random() * 4000));
         return new Promise(resolve => {
+            // Show typing indicator
+            const typing = document.createElement('div');
+            typing.className = 'chat-message bot typing';
+            typing.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+            chatbotBody.appendChild(typing);
+            chatbotBody.scrollTop = chatbotBody.scrollHeight;
+
             setTimeout(() => {
+                // Replace typing with actual message
+                typing.remove();
                 const msg = document.createElement('div');
                 msg.className = 'chat-message bot';
                 msg.textContent = text;
                 chatbotBody.appendChild(msg);
                 chatbotBody.scrollTop = chatbotBody.scrollHeight;
                 resolve();
-            }, delay);
+            }, useDelay);
         });
     }
 
